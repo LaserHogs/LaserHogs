@@ -20,23 +20,19 @@ public class PostgresConnection {
             e.printStackTrace();
         }
     }
-
-    public void addData(String name, int id, String lastname, String codename) {
+    public void addIDAndCodename(int id, String codename) {
         try {
             // create a prepared statement with a parameterized SQL query
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO player (id, first_name, last_name, codename) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO player (id, codename) VALUES (?, ?)");
+            connection.prepareStatement("SELECT * FROM player WHERE id = 'id';");
 
             // set the parameter values for the statement
             statement.setInt(1, id);
-            statement.setString(2, name);
-            statement.setString(3, lastname);
-            statement.setString(4, codename);
+            statement.setString(2, codename);
 
             // execute the statement to insert the data into the table
             int rowsAffected = statement.executeUpdate();
-
             System.out.println(rowsAffected + " rows inserted.");
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

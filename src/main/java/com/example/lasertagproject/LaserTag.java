@@ -14,12 +14,17 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class LaserTag extends Application {
+    String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
+    String username = "postgres";
+    String password = "laserHogs2023";
+    boolean onMain = false;
     @Override
     public void start(Stage stage) throws IOException {
 
         try{
             Parent root1 = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-            Parent root2 = FXMLLoader.load(getClass().getResource("EntryScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EntryScreenTest.fxml"));
+            Parent root2 = loader.load();
             Parent root3 = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 
             Scene scene1 = new Scene(root1, 1020, 640);
@@ -33,11 +38,13 @@ public class LaserTag extends Application {
             delay.setOnFinished( event -> stage.setScene(scene2) );
             delay.play();
 
+
             scene2.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
                     if (event.getCode().equals(KeyCode.F5)) {
                         stage.setScene(scene3);
+//                        onMain = true;
                     }
                 }
             });
@@ -48,14 +55,7 @@ public class LaserTag extends Application {
     }
 
     public static void main(String[] args) {
-        String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
-        String username = "postgres";
-        String password = "laserHogs2023";
-
-        PostgresConnection conn = new PostgresConnection(url, username, password);
-
-        //conn.addData("Eric", 2, "Iglesias", "laserHog1");
-
         launch();
+
     }
 }
