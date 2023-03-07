@@ -38,7 +38,9 @@ public class LaserTagController{
 
     private List<TextField> textFields = new ArrayList<>();
     private List<TextField> cnames = new ArrayList<>();
+    private List<Label> cnamesLable = new ArrayList<>();
     private int maxData = 30;
+    private int teamSize = 15;
 
     @FXML
     void initialize(){
@@ -72,8 +74,19 @@ public class LaserTagController{
         stage.show();
     }
 
-
-
+    //Idea for main screen player loading
+//    public void MainScreenLoadPlayers(ActionEvent event) throws IOException{
+//        root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//
+//        for (int i = 0; i < maxData; i++) {
+//            Label label = cnames.get(i);
+//            cnamesLabel.set(i, label);
+//
+//        }
+//    }
 
     @FXML
     private void sendInformationToSupabase(Event event) throws  IOException{
