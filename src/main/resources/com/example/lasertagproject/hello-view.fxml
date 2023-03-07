@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="myImageView" alignment="CENTER" prefHeight="492.0" prefWidth="777.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <ImageView fitHeight="554.0" fitWidth="799.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../splashscreen/laser-logo.jpg" />
+      </image>
+   </ImageView>
+</VBox>
