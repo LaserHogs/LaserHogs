@@ -45,6 +45,9 @@ public class LaserTag extends Application {
                     if (event.getCode().equals(KeyCode.F5)) {
                         stage.setScene(scene3);
 //                        onMain = true;
+
+                        //add game timer and read in player names to corresponding labels
+
                     }
                 }
             });
