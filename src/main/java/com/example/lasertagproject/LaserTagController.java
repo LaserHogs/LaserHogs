@@ -90,13 +90,13 @@ public class LaserTagController{
                         String cnameSend = cnames.get(counter).getText();
                         if (!idSend.isEmpty() && !cnameSend.isEmpty()) {
                             conn.addIDAndCodename(Integer.parseInt(idSend), cnameSend);
+//                            if(Integer.parseInt(idSend).exists)
                         }
+
                         counter++;
                     }
                 }
             }
-
-
     }
         @FXML
     private Label welcomeText;
