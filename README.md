@@ -6,4 +6,4 @@ Group 19 - LaserHogs
 
 Members: Conner Simpson, Eric Iglesias, Juan Marin, Julio Morales, Michael Jones
 
-Project Rough Outline: Design and create a usable interface for the original Laser Tag system
+Project Description: Design and create a usable interface for the original Laser Tag system using Java and supabase/postgreSQL for player database
