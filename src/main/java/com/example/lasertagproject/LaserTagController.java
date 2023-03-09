@@ -9,8 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -19,105 +17,89 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.UUID;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import java.util.*;
 
-import okhttp3.*;
+import javafx.scene.input.KeyEvent;
 
-public class LaserTagController{
+public class LaserTagController extends ActionController implements Initializable{
+    String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
+    String username = "postgres";
+    String password = "laserHogs2023";
+    PostgresConnection conn = new PostgresConnection(url, username, password);
 
     @FXML
-    private AnchorPane mainAnchorPane = new AnchorPane();
+    private AnchorPane EntryAnchorPane = new AnchorPane();
+
 
     private List<TextField> textFields = new ArrayList<>();
     private List<TextField> cnames = new ArrayList<>();
-    private List<Label> cnamesLable = new ArrayList<>();
     private int maxData = 30;
-    private int teamSize = 15;
 
-    @FXML
-    void initialize(){
 
+    public LaserTagController() throws IOException {
+        //constructor
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
         for (int i = 0; i < maxData; i++) {
             String textFieldId = "IDFIELD" + i;
             String textFieldcname = "cname" + i;
-            TextField textField = (TextField) mainAnchorPane.lookup("#" + textFieldId);
-            TextField cnamefield = (TextField) mainAnchorPane.lookup("#" + textFieldcname);
+            TextField textField = (TextField) EntryAnchorPane.lookup("#" + textFieldId);
+            TextField cnamefield = (TextField) EntryAnchorPane.lookup("#" + textFieldcname);
             cnames.add(cnamefield);
             textFields.add(textField);
+
 
         }
     }
 
-    @FXML
-    private Button SUBMIT = new Button();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    private Connection connection;
 
 
-    //this is entry screen
-    public void switchToMainScreen(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
-    //Idea for main screen player loading
-//    public void MainScreenLoadPlayers(ActionEvent event) throws IOException{
-//        root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-//        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//
-//        for (int i = 0; i < maxData; i++) {
-//            Label label = cnames.get(i);
-//            cnamesLabel.set(i, label);
-//
-//        }
-//    }
+    public void sendInformationToSupabase(Event event) throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+        Parent root = loader.load();
+        ActionController actionController = loader.getController();
 
-    @FXML
-    private void sendInformationToSupabase(Event event) throws  IOException{
-        String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
-        String username = "postgres";
-        String password = "laserHogs2023";
-        PostgresConnection conn = new PostgresConnection(url, username, password);
+        for (int i = 0; i < textFields.size() && i < cnames.size(); i++) {
+                String idSend = textFields.get(i).getText();
 
-            if (!textFields.isEmpty() && !cnames.isEmpty()) {
-                int counter = 0;
-                while (counter < textFields.size() && counter < cnames.size()) {
-                    if (textFields.get(counter) != null && cnames.get(counter) != null) {
-                        String idSend = textFields.get(counter).getText();
-                        String cnameSend = cnames.get(counter).getText();
-                        if (!idSend.isEmpty() && !cnameSend.isEmpty()) {
+                String cnameSend = cnames.get(i).getText();
+
+                    if (!idSend.isEmpty() && !cnameSend.isEmpty()) {
+                        System.out.printf("TRACK ");
+
                             conn.addIDAndCodename(Integer.parseInt(idSend), cnameSend);
-//                            if(Integer.parseInt(idSend).exists)
-                        }
+                            if(i >= 0 && i <=14){
+                                actionController.setNameLabelRed( cnameSend, i);
 
-                        counter++;
-                    }
-                }
+                            }
+                            System.out.printf("value of i " + i);
+                            if(i >= 15 && i <=30){
+                                actionController.setNameLabelGreen( cnameSend, i);
+                            }
+                        }
             }
+
     }
-        @FXML
-    private Label welcomeText;
+
+
+
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private void handleKeyPress(KeyEvent event) throws IOException{
+        if (event.getCode() == KeyCode.F5) {
+            switchToScene2(event);
+            sendInformationToSupabase(event);
+
+        }
     }
+
+
+
+
 
     void button(ActionEvent event) throws IOException{
 

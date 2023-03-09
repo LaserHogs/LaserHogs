@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class LaserTag extends Application {
+//    LaserTagController laserTagController = loader.getController();;
     String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
     String username = "postgres";
     String password = "laserHogs2023";
@@ -23,13 +24,12 @@ public class LaserTag extends Application {
 
         try{
             Parent root1 = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EntryScreenTest.fxml"));
             Parent root2 = loader.load();
-            Parent root3 = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 
             Scene scene1 = new Scene(root1, 1020, 640);
             Scene scene2 = new Scene(root2, 1020, 640);
-            Scene scene3 = new Scene(root3, 1020, 640);
 
             stage.setTitle("--LASER HOGS--");
             stage.setScene(scene1);
@@ -39,18 +39,7 @@ public class LaserTag extends Application {
             delay.play();
 
 
-            scene2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent event) {
-                    if (event.getCode().equals(KeyCode.F5)) {
-                        stage.setScene(scene3);
-//                        onMain = true;
 
-                        //add game timer and read in player names to corresponding labels
-
-                    }
-                }
-            });
 
         }catch(Exception e){
             e.printStackTrace();
