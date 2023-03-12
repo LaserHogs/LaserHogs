@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="EntryAnchorPane" onKeyReleased="#handleKeyPress" prefHeight="608.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
+<AnchorPane fx:id="EntryAnchorPane" onKeyReleased="#handleKeyPress" prefHeight="608.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
    <ImageView fitHeight="679.0" fitWidth="1025.0" layoutX="-3.0" layoutY="-37.0" pickOnBounds="true">
       <image>
          <Image url="@../entryscreen/entrybackground.jpg" />
@@ -13,7 +18,7 @@
    </ImageView>
    <Label layoutX="25.0" layoutY="31.0" text="Enter player ID:" textFill="WHITE">
       <font>
-         <Font size="13.0" />
+         <Font name="System Bold" size="18.0" />
       </font></Label>
 
    <Label layoutX="296.0" layoutY="457.0" prefHeight="43.0" prefWidth="130.0" text="RED TEAM" textFill="WHITE">
@@ -103,22 +108,22 @@
    <CheckBox layoutX="273.0" layoutY="141.0" mnemonicParsing="false" />
    <Label layoutX="25.0" layoutY="537.0" prefHeight="43.0" prefWidth="108.0" text="F1 EDIT GAME" textFill="WHITE">
       <font>
-         <Font size="15.0" />
+         <Font name="System Bold" size="15.0" />
       </font>
    </Label>
-   <Label layoutX="164.0" layoutY="541.0" prefHeight="34.0" prefWidth="168.0" text="F2  GAME PARAMETERS" textFill="WHITE">
+   <Label layoutX="164.0" layoutY="541.0" prefHeight="34.0" prefWidth="172.0" text="F2  GAME PARAMETERS" textFill="#d44b4b">
       <font>
-         <Font size="15.0" />
+         <Font name="System Bold" size="15.0" />
       </font>
    </Label>
    <Label layoutX="365.0" layoutY="541.0" prefHeight="34.0" prefWidth="117.0" text="F5 START GAME" textFill="WHITE">
       <font>
-         <Font size="15.0" />
+         <Font name="System Bold" size="15.0" />
       </font>
    </Label>
-   <Label layoutX="515.0" layoutY="541.0" prefHeight="34.0" prefWidth="129.0" text="F12 CLEAR GAME" textFill="WHITE">
+   <Label layoutX="515.0" layoutY="541.0" prefHeight="34.0" prefWidth="129.0" text="F12 CLEAR GAME" textFill="#ce2828">
       <font>
-         <Font size="15.0" />
+         <Font name="System Bold" size="15.0" />
       </font>
    </Label>
    <Label layoutX="310.0" layoutY="65.0" text="ID" textFill="WHITE">
