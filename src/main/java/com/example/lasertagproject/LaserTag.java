@@ -38,9 +38,6 @@ public class LaserTag extends Application {
             delay.setOnFinished( event -> stage.setScene(scene2) );
             delay.play();
 
-
-
-
         }catch(Exception e){
             e.printStackTrace();
         }

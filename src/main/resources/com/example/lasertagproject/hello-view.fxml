@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
 
 <VBox fx:id="myImageView" alignment="CENTER" prefHeight="492.0" prefWidth="777.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
     <padding>
@@ -14,4 +15,9 @@
          <Image url="@../splashscreen/laser-logo.jpg" />
       </image>
    </ImageView>
+    <Text fx:id="countDownTimer" fill="WHITE" layoutX="807.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="120">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+    </Text>
 </VBox>

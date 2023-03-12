@@ -6,6 +6,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="mainAnchorPane" prefHeight="608.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.ActionController">
    <children>
@@ -120,5 +122,10 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Text fx:id= "playTime" fill="WHITE" layoutX="470.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="120">
+              <font>
+                 <Font name="System Bold" size="32.0"/>
+              </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="EntryAnchorPane" onKeyReleased="#handleKeyPress" prefHeight="608.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
+<AnchorPane fx:id="EntryAnchorPane" onKeyReleased="#handleKeyPress" prefHeight="608.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lasertagproject.LaserTagController">
    <ImageView fitHeight="679.0" fitWidth="1025.0" layoutX="-3.0" layoutY="-37.0" pickOnBounds="true">
       <image>
          <Image url="@../entryscreen/entrybackground.jpg" />
@@ -86,7 +81,11 @@
    <TextField fx:id="cname28" layoutX="620.0" layoutY="404.0" prefHeight="26.0" prefWidth="83.0" />
    <TextField fx:id="IDFIELD29" layoutX="577.0" layoutY="429.0" prefHeight="26.0" prefWidth="42.0" />
    <TextField fx:id="cname29" layoutX="620.0" layoutY="429.0" prefHeight="26.0" prefWidth="83.0" />
-   <Button fx:id="submit" layoutX="829.0" layoutY="525.0" mnemonicParsing="false" onAction="#sendInformationToSupabase" text="SUBMIT" />
+   <Text fx:id="message" fill="WHITE" layoutX="719.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME STARTING IN..." wrappingWidth="259.0">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Text>
    <CheckBox layoutX="273.0" layoutY="91.0" mnemonicParsing="false" />
    <CheckBox layoutX="273.0" layoutY="358.0" mnemonicParsing="false" />
    <CheckBox layoutX="273.0" layoutY="381.0" mnemonicParsing="false" />
@@ -162,5 +161,9 @@
          <Font name="System Bold" size="24.0" />
       </font>
    </Label>
-
+   <Text fx:id="countDownTimer" fill="WHITE" layoutX="807.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="120">
+      <font>
+         <Font name="System Bold" size="32.0" />
+      </font>
+   </Text>
 </AnchorPane>

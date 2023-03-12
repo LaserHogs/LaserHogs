@@ -1,25 +1,30 @@
 package com.example.lasertagproject;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
 
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 public class LaserTagController extends ActionController implements Initializable{
     String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
@@ -27,9 +32,23 @@ public class LaserTagController extends ActionController implements Initializabl
     String password = "laserHogs2023";
     PostgresConnection conn = new PostgresConnection(url, username, password);
 
+    boolean f5pressed = false;
+
     @FXML
     private AnchorPane EntryAnchorPane = new AnchorPane();
 
+    @FXML
+    private Text message;
+
+    Time time1 = new Time("00:30");
+    @FXML
+    private Text countDownTimer;
+    Timeline timeline1 = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        time1.oneSecondPassed();
+                        countDownTimer.setText(time1.getCurrentTime());
+                    }));
 
     private List<TextField> textFields = new ArrayList<>();
     private List<TextField> cnames = new ArrayList<>();
@@ -51,14 +70,38 @@ public class LaserTagController extends ActionController implements Initializabl
             cnames.add(cnamefield);
             textFields.add(textField);
 
-
         }
     }
 
+    Timeline timeline3 = new Timeline(
+            new KeyFrame(Duration.seconds(1), e -> {
+                try {
+                    checkTimeline();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            })
+    );
 
+    public void startTimer() {
+        timeline1.setCycleCount(30);
+        timeline1.play();
 
+        timeline3.setCycleCount(30);
+        timeline3.play();
 
-    public void sendInformationToSupabase(Event event) throws  IOException{
+    }
+
+    public void checkTimeline() throws IOException {
+        if(timeline1.getStatus() == Animation.Status.STOPPED)
+        {
+            if(countDownTimer != null) {
+                switchToScene2(countDownTimer);
+                sendInformationToSupabase();
+            }
+        }
+    }
+    public void sendInformationToSupabase() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
         Parent root = loader.load();
         ActionController actionController = loader.getController();
@@ -90,19 +133,14 @@ public class LaserTagController extends ActionController implements Initializabl
 
     @FXML
     private void handleKeyPress(KeyEvent event) throws IOException{
-        if (event.getCode() == KeyCode.F5) {
-            switchToScene2(event);
-            sendInformationToSupabase(event);
-
+        if (event.getCode() == KeyCode.F5)
+        {
+            countDownTimer.setText(time1.getCurrentTime());
+            startTimer();
         }
     }
-
-
-
-
 
     void button(ActionEvent event) throws IOException{
 
     }
-
 }

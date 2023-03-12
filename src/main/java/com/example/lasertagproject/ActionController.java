@@ -17,7 +17,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,7 +44,16 @@ public class ActionController implements Initializable {
     @FXML
     Label Ecname0;
 
+    Time time2 = new Time("06:01");
+    @FXML
+    private Text playTime;
 
+    Timeline timeline2 = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        time2.oneMinutePassed();
+                        playTime.setText(time2.getCurrentTime());
+                    }));
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         for (int i = 0; i < 30; i++) {
@@ -54,6 +66,10 @@ public class ActionController implements Initializable {
 //            System.out.printf("pname " + labe2);
         }
 
+        playTime.setText(time2.getCurrentTime());
+        timeline2.setCycleCount(361);
+        timeline2.play();
+
     }
 
 
@@ -64,19 +80,14 @@ public class ActionController implements Initializable {
 
     private Stage stage;
     private Scene scene;
-    public void switchToScene2(KeyEvent event) throws IOException
+    public void switchToScene2(Text text) throws IOException
     {
         Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
+        stage = (Stage) text.getScene().getWindow();
         scene = new Scene(root, 1020, 640);
-
         stage.setScene(scene);
-
         stage.show();
-
-
     }
 
 
