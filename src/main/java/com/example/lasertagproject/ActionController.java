@@ -54,6 +54,7 @@ public class ActionController implements Initializable {
                         time2.oneMinutePassed();
                         playTime.setText(time2.getCurrentTime());
                     }));
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         for (int i = 0; i < 30; i++) {
@@ -69,7 +70,6 @@ public class ActionController implements Initializable {
         playTime.setText(time2.getCurrentTime());
         timeline2.setCycleCount(361);
         timeline2.play();
-
     }
 
 

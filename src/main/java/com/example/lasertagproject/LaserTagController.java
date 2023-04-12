@@ -19,10 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import java.io.File;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
@@ -31,6 +35,9 @@ public class LaserTagController extends ActionController implements Initializabl
     String username = "postgres";
     String password = "laserHogs2023";
     PostgresConnection conn = new PostgresConnection(url, username, password);
+
+    String filePath = "C:\\Users\\ericm\\Documents\\GitHub\\src\\main\\resources\\com\\example\\music\\Track02.wav";
+    MusicHandler music = new MusicHandler();
 
     boolean f5pressed = false;
 
@@ -59,7 +66,6 @@ public class LaserTagController extends ActionController implements Initializabl
         //constructor
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb){
         for (int i = 0; i < maxData; i++) {
@@ -69,7 +75,6 @@ public class LaserTagController extends ActionController implements Initializabl
             TextField cnamefield = (TextField) EntryAnchorPane.lookup("#" + textFieldcname);
             cnames.add(cnamefield);
             textFields.add(textField);
-
         }
     }
 
@@ -83,6 +88,10 @@ public class LaserTagController extends ActionController implements Initializabl
             })
     );
 
+    Timeline timeline4 = new Timeline(
+            new KeyFrame(Duration.seconds(12), e -> {
+                music.playMusic(filePath);
+            }));
     public void startTimer() {
         timeline1.setCycleCount(30);
         timeline1.play();
@@ -90,6 +99,7 @@ public class LaserTagController extends ActionController implements Initializabl
         timeline3.setCycleCount(30);
         timeline3.play();
 
+        timeline4.play();
     }
 
     public void checkTimeline() throws IOException {

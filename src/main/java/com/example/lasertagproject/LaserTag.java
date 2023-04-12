@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 public class LaserTag extends Application {
@@ -45,6 +44,5 @@ public class LaserTag extends Application {
 
     public static void main(String[] args) {
         launch();
-
     }
 }
