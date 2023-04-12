@@ -23,12 +23,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import java.io.File;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class LaserTagController extends ActionController implements Initializable{
     String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
@@ -36,8 +36,11 @@ public class LaserTagController extends ActionController implements Initializabl
     String password = "laserHogs2023";
     PostgresConnection conn = new PostgresConnection(url, username, password);
 
-    String filePath = "C:\\Users\\ericm\\Documents\\GitHub\\src\\main\\resources\\com\\example\\music\\Track02.wav";
+    String filePath = "src\\main\\resources\\com\\example\\music\\Track02.wav";
+    //String filePath2 = "src\\main\\resources\\com\\example\\music\\lady-of-the-80x27s-128379.wav";
     MusicHandler music = new MusicHandler();
+   // MusicHandler music2 = new MusicHandler();
+
 
     boolean f5pressed = false;
 
@@ -76,6 +79,7 @@ public class LaserTagController extends ActionController implements Initializabl
             cnames.add(cnamefield);
             textFields.add(textField);
         }
+
     }
 
     Timeline timeline3 = new Timeline(
@@ -137,8 +141,6 @@ public class LaserTagController extends ActionController implements Initializabl
             }
 
     }
-
-
 
 
     @FXML

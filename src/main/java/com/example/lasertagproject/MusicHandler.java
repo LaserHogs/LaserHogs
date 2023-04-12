@@ -1,5 +1,6 @@
 package com.example.lasertagproject;
 
+import javax.sound.sampled.*;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
