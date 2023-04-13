@@ -29,6 +29,7 @@ import javafx.util.Duration;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import java.util.random.RandomGenerator;
 
 public class LaserTagController extends ActionController implements Initializable{
     String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
@@ -36,8 +37,8 @@ public class LaserTagController extends ActionController implements Initializabl
     String password = "laserHogs2023";
     PostgresConnection conn = new PostgresConnection(url, username, password);
 
-    String filePath = "src\\main\\resources\\com\\example\\music\\Track02.wav";
-    //String filePath2 = "src\\main\\resources\\com\\example\\music\\lady-of-the-80x27s-128379.wav";
+    int trackSelected = randomMusicPicker();
+    String filePath = "src\\main\\resources\\com\\example\\music\\Track0"+trackSelected+".wav";    //String filePath2 = "src\\main\\resources\\com\\example\\music\\lady-of-the-80x27s-128379.wav";
     MusicHandler music = new MusicHandler();
    // MusicHandler music2 = new MusicHandler();
 
@@ -142,6 +143,13 @@ public class LaserTagController extends ActionController implements Initializabl
 
     }
 
+
+    public int randomMusicPicker()
+    {
+        Random randomTrack = new Random();
+        int randomNumber = randomTrack.nextInt(8) + 1;
+        return randomNumber;
+    }
 
     @FXML
     private void handleKeyPress(KeyEvent event) throws IOException{
