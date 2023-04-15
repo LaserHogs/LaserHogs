@@ -38,18 +38,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ActionController implements Initializable, Runnable{
+public class ActionController implements Initializable, Runnable {
 
 
     static int roundTimer = 5;
-    
 
 
     @FXML
     AnchorPane mainAnchorPane = new AnchorPane();
     @FXML
     private ListView<String> playerhit = new ListView<>();
-
 
 
     public static List<Label> scoreLabels = new ArrayList<>();
@@ -77,13 +75,13 @@ public class ActionController implements Initializable, Runnable{
     static String greenPlayerNameScore = "";
     static String redPlayerNameScore = "";
 
-    static String greenTotalScore ="";
-    static String redTotalScore ="";
+    static String greenTotalScore = "";
+    static String redTotalScore = "";
 
 
     udpTrafficGen trafficGenerator = new udpTrafficGen();
     @FXML
-    Label EID0 ;
+    Label EID0;
     @FXML
     Label Ecname0;
 
@@ -93,31 +91,21 @@ public class ActionController implements Initializable, Runnable{
     @FXML
     private Text playTime;
 
-<<<<<<< HEAD
     public static List<Text> TotalScoreLabels = new ArrayList<>();
 
 
     @FXML
 
 
-    ObservableList<String>  greenPlayerText = FXCollections.observableArrayList();
-    ObservableList<String>  redPlayerText = FXCollections.observableArrayList();
+    ObservableList<String> greenPlayerText = FXCollections.observableArrayList();
+    ObservableList<String> redPlayerText = FXCollections.observableArrayList();
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-=======
-    Timeline timeline2 = new Timeline(
-            new KeyFrame(Duration.seconds(1),
-                    e -> {
-                        time2.oneMinutePassed();
-                        playTime.setText(time2.getCurrentTime());
-                    }));
 
->>>>>>> 367ecfefba91e5ec2b7625d2174fe1d89e695b47
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        playerhit = (ListView<String>) mainAnchorPane.lookup("#playerhit");
-
-
 
 
         try {
@@ -125,8 +113,6 @@ public class ActionController implements Initializable, Runnable{
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
 
 
         for (int i = 0; i < 30; i++) {
@@ -141,10 +127,7 @@ public class ActionController implements Initializable, Runnable{
             Label scoresOfAllGreen = (Label) mainAnchorPane.lookup("#" + GreenScoreLabels);//label2
 
 
-
-
-
-            if(i >= 0 && i <= 14){
+            if (i >= 0 && i <= 14) {
 //                scoresOfAll.textProperty().bind(cname.textProperty());
 
 
@@ -153,7 +136,7 @@ public class ActionController implements Initializable, Runnable{
                 scoreLabelsGreen.add(scoresOfAllGreen);
 
 
-            } else if (i >14 && i < 30) {
+            } else if (i > 14 && i < 30) {
 //                scoresOfAll.textProperty().bind(cname.textProperty());
 
                 StaticCnames.add(cname);
@@ -179,7 +162,6 @@ public class ActionController implements Initializable, Runnable{
         playTime.setText(((Time) time2).getCurrentTime());
         timeline2.setCycleCount(361);
         timeline2.play();
-<<<<<<< HEAD
 
         greenPlayerText.add("");
         playerhit.setItems(greenPlayerText);
@@ -188,28 +170,29 @@ public class ActionController implements Initializable, Runnable{
         redPlayerText.add("");
         playerhit.setItems(redPlayerText);
 
-=======
+
+
+
+        try
+
+    {
+        new UDPServer().start();//start server
+    } catch(
+    SocketException e)
+
+    {
+        throw new RuntimeException(e);
     }
->>>>>>> 367ecfefba91e5ec2b7625d2174fe1d89e695b47
+        executorService.scheduleAtFixedRate(this::ViewGameAction,0,1,TimeUnit.SECONDS);
 
 
-
-
-        try {
-            new UDPServer().start();//start server
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
-        executorService.scheduleAtFixedRate(this::ViewGameAction, 0, 1, TimeUnit.SECONDS);
-
-
-        Text RedScoreLabel = (Text) mainAnchorPane.lookup("#RedScoreLabel");
-        Text GreenScoreLabel = (Text) mainAnchorPane.lookup("#GreenScoreLabel");
+    Text RedScoreLabel = (Text) mainAnchorPane.lookup("#RedScoreLabel");
+    Text GreenScoreLabel = (Text) mainAnchorPane.lookup("#GreenScoreLabel");
 
         TotalScoreLabels.add(GreenScoreLabel);
         TotalScoreLabels.add(RedScoreLabel);
 
-    }
+}
 
 
 
@@ -526,4 +509,5 @@ public class ActionController implements Initializable, Runnable{
     public void run() {
 
     }
+
 }
