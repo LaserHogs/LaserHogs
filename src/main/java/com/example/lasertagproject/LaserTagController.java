@@ -14,11 +14,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
-
+import java.io.File;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.util.random.RandomGenerator;
 
 public class LaserTagController extends ActionController implements Initializable{
 
@@ -26,6 +31,12 @@ public class LaserTagController extends ActionController implements Initializabl
     String username = "postgres";
     String password = "laserHogs2023";
     PostgresConnection conn = new PostgresConnection(url, username, password);
+
+    int trackSelected = randomMusicPicker();
+    String filePath = "src\\main\\resources\\com\\example\\music\\Track0"+trackSelected+".wav";    //String filePath2 = "src\\main\\resources\\com\\example\\music\\lady-of-the-80x27s-128379.wav";
+    MusicHandler music = new MusicHandler();
+   // MusicHandler music2 = new MusicHandler();
+
 
     boolean f5pressed = false;
 
@@ -64,7 +75,6 @@ public class LaserTagController extends ActionController implements Initializabl
         //constructor
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
@@ -77,8 +87,8 @@ public class LaserTagController extends ActionController implements Initializabl
 
             cnames.add(cnamefield);
             textFields.add(textField);
-
         }
+
     }
 
     Timeline timeline3 = new Timeline(
@@ -91,6 +101,10 @@ public class LaserTagController extends ActionController implements Initializabl
             })
     );
 
+    Timeline timeline4 = new Timeline(
+            new KeyFrame(Duration.seconds(12), e -> {
+                music.playMusic(filePath);
+            }));
     public void startTimer() {
         timeline1.setCycleCount(30);
         timeline1.play();
@@ -98,6 +112,7 @@ public class LaserTagController extends ActionController implements Initializabl
         timeline3.setCycleCount(30);
         timeline3.play();
 
+        timeline4.play();
     }
 
     public void checkTimeline() throws IOException {
@@ -139,6 +154,7 @@ public class LaserTagController extends ActionController implements Initializabl
 //        Parent root = loader.load();
         ActionController actionController = new ActionController();
 
+<<<<<<< HEAD
         for (int i = 0; i < textFields.size() && i < cnames.size(); i++) {
             String idSend = textFields.get(i).getText();
 
@@ -156,6 +172,13 @@ public class LaserTagController extends ActionController implements Initializabl
                 }
             }
         }
+=======
+    public int randomMusicPicker()
+    {
+        Random randomTrack = new Random();
+        int randomNumber = randomTrack.nextInt(8) + 1;
+        return randomNumber;
+>>>>>>> 367ecfefba91e5ec2b7625d2174fe1d89e695b47
     }
 
     @FXML

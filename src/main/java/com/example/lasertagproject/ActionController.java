@@ -93,6 +93,7 @@ public class ActionController implements Initializable, Runnable{
     @FXML
     private Text playTime;
 
+<<<<<<< HEAD
     public static List<Text> TotalScoreLabels = new ArrayList<>();
 
 
@@ -103,6 +104,15 @@ public class ActionController implements Initializable, Runnable{
     ObservableList<String>  redPlayerText = FXCollections.observableArrayList();
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+=======
+    Timeline timeline2 = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        time2.oneMinutePassed();
+                        playTime.setText(time2.getCurrentTime());
+                    }));
+
+>>>>>>> 367ecfefba91e5ec2b7625d2174fe1d89e695b47
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        playerhit = (ListView<String>) mainAnchorPane.lookup("#playerhit");
@@ -169,6 +179,7 @@ public class ActionController implements Initializable, Runnable{
         playTime.setText(((Time) time2).getCurrentTime());
         timeline2.setCycleCount(361);
         timeline2.play();
+<<<<<<< HEAD
 
         greenPlayerText.add("");
         playerhit.setItems(greenPlayerText);
@@ -177,6 +188,9 @@ public class ActionController implements Initializable, Runnable{
         redPlayerText.add("");
         playerhit.setItems(redPlayerText);
 
+=======
+    }
+>>>>>>> 367ecfefba91e5ec2b7625d2174fe1d89e695b47
 
 
 
