@@ -1,32 +1,27 @@
 package com.example.lasertagproject;
 
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.util.*;
 
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 public class LaserTagController extends ActionController implements Initializable{
+
     String url = "jdbc:postgresql://db.mphzfoxdwxmdbxykkdad.supabase.co:5432/postgres?user=postgres&password=laserHogs2023";
     String username = "postgres";
     String password = "laserHogs2023";
@@ -55,6 +50,16 @@ public class LaserTagController extends ActionController implements Initializabl
     private int maxData = 30;
 
 
+    @FXML
+    private TextField redScoreField;
+
+    @FXML
+    private TextField greenScoreField;
+
+    @FXML
+    private TextField hitPlayerField;
+
+
     public LaserTagController() throws IOException {
         //constructor
     }
@@ -62,11 +67,14 @@ public class LaserTagController extends ActionController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
+
+
         for (int i = 0; i < maxData; i++) {
             String textFieldId = "IDFIELD" + i;
             String textFieldcname = "cname" + i;
             TextField textField = (TextField) EntryAnchorPane.lookup("#" + textFieldId);
             TextField cnamefield = (TextField) EntryAnchorPane.lookup("#" + textFieldcname);
+
             cnames.add(cnamefield);
             textFields.add(textField);
 
@@ -97,14 +105,17 @@ public class LaserTagController extends ActionController implements Initializabl
         {
             if(countDownTimer != null) {
                 switchToScene2(countDownTimer);
-                sendInformationToSupabase();
+                setInfo();
+
+                Runnable myRunnable = new ActionController();
+                Thread myThread = new Thread(myRunnable);
+                myThread.start();
+
+
             }
         }
     }
-    public void sendInformationToSupabase() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
-        Parent root = loader.load();
-        ActionController actionController = loader.getController();
+    public void sendInformationToSupabase() {
 
         for (int i = 0; i < textFields.size() && i < cnames.size(); i++) {
                 String idSend = textFields.get(i).getText();
@@ -112,35 +123,48 @@ public class LaserTagController extends ActionController implements Initializabl
                 String cnameSend = cnames.get(i).getText();
 
                     if (!idSend.isEmpty() && !cnameSend.isEmpty()) {
-                        System.out.printf("TRACK ");
 
-                            conn.addIDAndCodename(Integer.parseInt(idSend), cnameSend);
                             if(i >= 0 && i <=14){
-                                actionController.setNameLabelRed( cnameSend, i);
-
+                                conn.addToRedTable(Integer.parseInt(idSend), cnameSend);
                             }
-                            System.out.printf("value of i " + i);
-                            if(i >= 15 && i <=30){
-                                actionController.setNameLabelGreen( cnameSend, i);
+                            if(i >= 15 && i <= 29){
+                                conn.addToGreenTable(Integer.parseInt(idSend), cnameSend);
                             }
                         }
             }
-
     }
 
+    public void setInfo() throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
+//        Parent root = loader.load();
+        ActionController actionController = new ActionController();
 
+        for (int i = 0; i < textFields.size() && i < cnames.size(); i++) {
+            String idSend = textFields.get(i).getText();
 
+            String cnameSend = cnames.get(i).getText();
+
+            if (!idSend.isEmpty() && !cnameSend.isEmpty()) {
+
+                if(i >= 0 && i <=14){
+                    actionController.setNameLabelRed( cnameSend, i);
+//                    actionController.getIdRed(idSend, i);
+                }
+                if(i >= 15 && i <= 29){
+                    actionController.setNameLabelGreen( cnameSend, i);
+//                    actionController.getIdGreen((idSend), i);
+                }
+            }
+        }
+    }
 
     @FXML
     private void handleKeyPress(KeyEvent event) throws IOException{
         if (event.getCode() == KeyCode.F5)
         {
+            sendInformationToSupabase();
             countDownTimer.setText(time1.getCurrentTime());
             startTimer();
         }
-    }
-
-    void button(ActionEvent event) throws IOException{
-
     }
 }

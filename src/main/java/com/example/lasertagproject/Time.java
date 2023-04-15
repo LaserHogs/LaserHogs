@@ -1,7 +1,12 @@
 package com.example.lasertagproject;
 
-public class Time {
+public class Time implements Runnable{
+    @Override
+    public void run() {
+
+    }
     private int minute;
+
     private int second;
 
     public Time (int minute, int second)
