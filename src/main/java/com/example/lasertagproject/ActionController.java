@@ -1,5 +1,6 @@
 package com.example.lasertagproject;
 
+import javafx.animation.KeyValue;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -101,6 +102,8 @@ public class ActionController implements Initializable, Runnable {
     ObservableList<String> redPlayerText = FXCollections.observableArrayList();
 
     private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+
 
 
     @Override
@@ -267,6 +270,19 @@ public class ActionController implements Initializable, Runnable {
 
 
     private void ViewGameAction() {
+//        Timeline flashScoreRed = new Timeline();
+//        flashScoreRed.setCycleCount(Timeline.INDEFINITE);
+//        flashScoreRed.setAutoReverse(true);
+//
+//        Timeline flashScoreGreen = new Timeline();
+//        flashScoreGreen.setCycleCount(Timeline.INDEFINITE);
+//        flashScoreGreen.setAutoReverse(true);
+
+//        KeyValue start = new KeyValue(myLabel.opacityProperty(), 1.0);
+//        KeyValue end = new KeyValue(myLabel.opacityProperty(), 0.0);
+//        KeyFrame startFrame = new KeyFrame(Duration.ZERO, start);
+//        KeyFrame endFrame = new KeyFrame(Duration.millis(500), end);
+
         try {
 
             for(int i = 0; i < redInfo.size(); i++) {
@@ -320,42 +336,45 @@ public class ActionController implements Initializable, Runnable {
 //                        System.out.println("is red? " + trafficGenerator.isRed);
 
                         for(int events=0; events < 10; events++){
-                            PersonalizedPlayersKey = trafficGenerator.generateTraffic(StaticIdGreen, StaticIdRed);
+                            PersonalizedPlayersKey = udpTrafficGen.generateTraffic(StaticIdGreen, StaticIdRed);
 
-                            if(trafficGenerator.isGreen == true){
+                            int totalGreenScores = 0;
+                            int totalRedScores = 0;
+
+
+
+
+
+
+                            if(udpTrafficGen.isGreen){
                                 ShooterIsGreen = true;
                                 ShooterIsRed = false;
 
                                 System.out.println("\n---- GREEN TEAM SHOOTS ----");
 
 
-                                String finalPersonalizedPlayersKey = PersonalizedPlayersKey;
-                                Platform.runLater(() -> playerhit.getItems().add(0, finalPersonalizedPlayersKey));
+                                String finalPersonalizedGREENPlayersKey = PersonalizedPlayersKey;
+                                Platform.runLater(() -> playerhit.getItems().add(0, finalPersonalizedGREENPlayersKey));
 
 
-                                int totalGreenScores = 0;
-                                System.out.println("GreenPlayerScores.size: " + GreenPlayerScores.size());
                                 for(int k=0; k< GreenPlayerScores.size(); k++){
                                     totalGreenScores += greenInfo.get(k).getScore();
+                                    totalRedScores += redInfo.get(k).getScore();
                                 }
 
                                 int finalTotalGreenScores = totalGreenScores + 10;
 
-                                System.out.println("TOTAL PUNTAJE: " + totalGreenScores);
 
                                 totalScoreTextGreen(finalTotalGreenScores);
 
-
-
                                 UDPClient.sendToServer(PersonalizedPlayersKey);
+                                int finalTotalRedScores = totalRedScores;
 
-
-
-
-
+                                flashGreen(finalTotalGreenScores, finalTotalRedScores);
+                                flashRed(finalTotalRedScores,finalTotalGreenScores);
 
                             }
-                            else if(trafficGenerator.isRed){
+                            else if(udpTrafficGen.isRed){
 
 
                                 ShooterIsRed = true;
@@ -365,38 +384,53 @@ public class ActionController implements Initializable, Runnable {
 //                                PersonalizedPlayersKey = trafficGenerator.generateTraffic( StaticIdRed,StaticIdGreen );
 
 
-                                String finalPersonalizedPlayersKey1 = PersonalizedPlayersKey;
+                                String finalPersonalizedREDPlayersKey1 = PersonalizedPlayersKey;
 
-                                Platform.runLater(() -> playerhit.getItems().add(0, finalPersonalizedPlayersKey1));
+                                Platform.runLater(() -> playerhit.getItems().add(0, finalPersonalizedREDPlayersKey1));
 
-                                int totalRedScores = 0;
+
                                 for(int k=0; k< RedPlayerScores.size(); k++){
                                     totalRedScores += redInfo.get(k).getScore();
+                                    totalGreenScores += greenInfo.get(k).getScore();
                                 }
 
                                 int finalTotaltotalRedScores = totalRedScores + 10;
 
-                                System.out.println("TOTAL PUNTAJE: " + totalRedScores);
+                                int finalTotalGreenScores1 = totalGreenScores + 10;
+
                                 totalScoreTextRed(finalTotaltotalRedScores);
 
                                 UDPClient.sendToServer(PersonalizedPlayersKey);
 
+                                flashRed(finalTotaltotalRedScores, finalTotalGreenScores1);
+                                flashGreen(finalTotalGreenScores1, finalTotaltotalRedScores);
+
+
 
 
                             }
 
 
-                            else if (userTeamChoice.equalsIgnoreCase("end")){
-                                PersonalizedPlayersKey = "end";
-                                ShooterIsRed = ShooterIsGreen = false;
-                                BadInputFlag = false;
-                            }
+//                            else {
+//                                // Stop the animation for both labels if neither condition is true
+//                                flashScore.stop();
+//                                TotalScoreLabels.get(0).setOpacity(1.0);
+//                                TotalScoreLabels.get(1).setOpacity(1.0);
+//
+//                            }
 
 
-                            else{
-                                System.out.print(" Please enter G or R ");
-                                BadInputFlag = true;
-                            }
+//                            else if (userTeamChoice.equalsIgnoreCase("end")){
+//                                PersonalizedPlayersKey = "end";
+//                                ShooterIsRed = ShooterIsGreen = false;
+//                                BadInputFlag = false;
+//                            }
+//
+//
+//                            else{
+//                                System.out.print(" Please enter G or R ");
+//                                BadInputFlag = true;
+//                            }
                         }
 
                     } catch (InputMismatchException e) {
@@ -502,6 +536,60 @@ public class ActionController implements Initializable, Runnable {
         TotalScoreLabels.get(1).setText(String.valueOf(Score));
     }
 
+    public void flashRed(int highScore, int lowerScore){
+        Timeline flashScoreRed = new Timeline();
+        flashScoreRed.setCycleCount(Timeline.INDEFINITE);
+        flashScoreRed.setAutoReverse(true);
+
+
+
+        if(highScore > lowerScore){
+            TotalScoreLabels.get(0).setOpacity(1.0);
+
+            KeyValue start = new KeyValue(TotalScoreLabels.get(1).opacityProperty(), 1.0);
+            KeyValue end = new KeyValue(TotalScoreLabels.get(1).opacityProperty(), 0.0);
+            KeyFrame startFrame = new KeyFrame(Duration.ZERO, start);
+            KeyFrame endFrame = new KeyFrame(Duration.millis(300), end);
+
+            flashScoreRed.getKeyFrames().addAll(startFrame, endFrame);
+            flashScoreRed.setOnFinished(event -> {
+                TotalScoreLabels.get(1).setOpacity(1.0); // Reset the opacity of the score label
+            });
+            flashScoreRed.play();
+        }
+        else{
+            flashScoreRed.stop();
+            TotalScoreLabels.get(1).setOpacity(1.0); // Reset the opacity of the score label
+        }
+
+
+
+    }
+    public void flashGreen(int highScore, int lowerScore){
+        Timeline flashScoreGreen = new Timeline();
+        flashScoreGreen.setCycleCount(Timeline.INDEFINITE);
+        flashScoreGreen.setAutoReverse(true);
+
+        if(highScore > lowerScore)//if green higher than red
+        {
+            TotalScoreLabels.get(1).setOpacity(1.0);
+
+            KeyValue start = new KeyValue(TotalScoreLabels.get(0).opacityProperty(), 1.0);
+            KeyValue end = new KeyValue(TotalScoreLabels.get(0).opacityProperty(), 0.0);
+            KeyFrame startFrame = new KeyFrame(Duration.ZERO, start);
+            KeyFrame endFrame = new KeyFrame(Duration.millis(300), end);
+
+            flashScoreGreen.getKeyFrames().addAll(startFrame, endFrame);
+            flashScoreGreen.setOnFinished(event -> {
+                TotalScoreLabels.get(0).setOpacity(1.0); // Reset the opacity of the score label
+            });
+            flashScoreGreen.play();
+        }
+        else{
+            flashScoreGreen.stop();
+            TotalScoreLabels.get(0).setOpacity(1.0); // Reset the opacity of the score label
+        }
+    }
 
 
 
