@@ -142,9 +142,11 @@ public class LaserTagController extends ActionController implements Initializabl
 
                 if (i >= 0 && i <= 14) {
                     conn.addToRedTable(Integer.parseInt(idSend), cnameSend);
+                    conn.addIDAndCodename(Integer.parseInt(idSend), cnameSend);
                 }
                 if (i >= 15 && i <= 29) {
                     conn.addToGreenTable(Integer.parseInt(idSend), cnameSend);
+                    conn.addIDAndCodename(Integer.parseInt(idSend), cnameSend);
                 }
             }
         }

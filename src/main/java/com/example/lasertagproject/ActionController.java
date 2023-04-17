@@ -91,7 +91,8 @@ public class ActionController implements Initializable, Runnable {
 
     @FXML
     private Text playTime;
-
+    @FXML
+    private Text TopScorerName;
     public static List<Text> TotalScoreLabels = new ArrayList<>();
 
 
@@ -304,7 +305,7 @@ public class ActionController implements Initializable, Runnable {
 
             // Start the client in a new thread
             UDPClient client = new UDPClient();
-
+            String topPlayerScorer;
 
             int index =0;
             while(roundTimer != 0) {
@@ -445,6 +446,36 @@ public class ActionController implements Initializable, Runnable {
 
                 saveInfo();
 
+                int topGreenScorer = greenInfo.get(0).getScore();
+                String topGreenplayer = greenInfo.get(0).getCodename();
+                int topRedScorer = redInfo.get(0).getScore();
+                String topRedPlayer = redInfo.get(0).getCodename();
+
+                for(int j = 1; j < GreenPlayerScores.size(); j++){
+                    if(greenInfo.get(j).getScore() >= topGreenScorer)
+                    {
+                        topGreenScorer = greenInfo.get(j).getScore();
+                        topGreenplayer = greenInfo.get(j).getCodename();
+                    }
+                }
+
+                for(int g = 1 ; g < RedPlayerScores.size(); g ++){
+                    if(redInfo.get(g).getScore() >= topRedScorer)
+                    {
+                        topRedScorer = redInfo.get(g).getScore();
+                        topRedPlayer = redInfo.get(g).getCodename();
+                    }
+                }
+
+                if (topRedScorer > topGreenScorer)
+                {
+                    topPlayerScorer = topRedPlayer;
+                }
+                else
+                    topPlayerScorer = topGreenplayer;
+
+                System.out.println("Top Player is" + topPlayerScorer);
+                TopScorerName.setText(topPlayerScorer);
 
                 index++;
                 roundTimer--;
