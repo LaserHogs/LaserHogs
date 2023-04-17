@@ -21,6 +21,6 @@ Once loaded, navigate to LaserTag.java (LaserHogs/src/main/java/com.example.lase
 
 The program will enter the splash screen. <br><br>
 
-Now you are able to enter player ID's and Names, pressing F5 will start game countdown timer of 30 seconds and then switch to the play action screen with a game run timer of 6 minutes. <br><br>
+Now you are able to enter player ID's and Names, pressing F5 will start game countdown timer of 30 seconds and then switch to the play action screen with a game run timer of 6 minutes. the program connects through a UDP client to a UDP server automatically, the server and the client run as a class within the same program, so there is no need to run additional program. <br><br>
 <p>
 
