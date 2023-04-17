@@ -27,6 +27,6 @@ This program uses SupaBase to calculate team scores and store information, pleas
   
 For the program to connect correctly to the database server (SupaBase), it needs a driver to be added to the program path/structure. The driver could be found in the following link: https://jdbc.postgresql.org/ <br><br> 
 
-In the play screen, the top scorer name is updated after the round is over. Name will match the player with the highest score regardless of the team. Same condition applies for the total scores of each team. <br><br> 
+In the play screen, the top scorer name is updated after each round is over. Name will match the player with the highest score regardless of the team. Same condition applies for the total scores of each team. <br><br> 
 <p>
 
